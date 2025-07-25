@@ -1,4 +1,12 @@
 {
     "pasteImage.defaultName": "pic-YYYYMMDD-HHMMSS",
+    "C_Cpp.default.compileCommands": [
+        ""
+    ],
+
+    "code-runner.runInTerminal": true,      // 关键：在集成终端里运行
+    "code-runner.executorMap": {
+    "c": "gcc $fileName -o $fileNameWithoutExt.exe -mconsole && $dir$fileNameWithoutExt.exe"
+    }
 
 }

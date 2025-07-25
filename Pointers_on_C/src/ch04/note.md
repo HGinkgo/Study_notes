@@ -230,9 +230,173 @@
    }
    ```
 
-2. 
+2. <img src="./images/image-20250724193551500.png" alt="image-20250724193551500" style="zoom:80%;" /> 
 
+   ```
+   #include <stdio.h>
+   
+   int main() {
+       int n = 100;
+       for (int i = 2; i <= n; ++i) {
+           int flag = 0;
+           for (int j = 2; j <= i / j; ++j)
+               if (i % j == 0) {
+                   flag = 1;
+                   break;
+               }
+           if (!flag)
+               printf("%d\n", i);
+       }
+       return 0;
+   }
+   ```
 
+3. <img src="./images/image-20250724194143294.png" alt="image-20250724194143294" style="zoom:80%;" /> 
+
+   ```
+   #include <stdio.h>
+   
+   int main() {
+       double a, b, c;
+       scanf("%lf%lf%lf", &a, &b, &c);
+   
+       double temp;
+       if (a < b) {
+           temp = a;
+           a = b;
+           b = temp;
+       }
+       if (a < c) {
+           temp = a;
+           a = c;
+           c = temp;
+       }
+       if (b < c) {
+           temp = b;
+           b = c;
+           c = temp;
+       }
+       
+       if (c <= 0 || b + c < a)
+           printf("不是三角形.\n");
+       else if (a == b && b == c)
+           printf("等边.\n");
+       else if (a == b || b == c)
+           printf("等腰.\n");
+       else
+           printf("不等边\n");
+       return 0;
+   }
+   ```
+
+4. <img src="./images/image-20250724200013663.png" alt="image-20250724200013663" style="zoom:80%;" /> 
+
+   ```
+   #include <stdio.h>
+   
+   void copy_n(char dst[], char src[], int n) {
+       int dst_index, src_index = 0;
+       for (dst_index = 0; dst_index < n; dst_index ++) {
+           dst[dst_index] = src[src_index];
+           if (src[src_index] != 0)
+               src_index++;
+       }
+   }
+   
+   int main() {
+       char a[10] = "012345678", b[10];
+       copy_n(b, a, 5);
+       puts(a);
+       puts(b);
+   }
+   
+   /*
+   012345678901234
+   01234
+   */
+   ```
+
+5. <img src="./images/image-20250725161048860.png" alt="image-20250725161048860" style="zoom:80%;" /> 
+
+   ```
+   #include <stdio.h>
+   #include <string.h>
+   
+   const N = 129;
+   
+   int main() {
+   	int flag = 0;
+   	char a[N], b[N];
+   	if (gets(b) != NULL) {
+   		while (gets(a) != NULL) {
+   			if (strcmp(a, b) != 0) {
+   				flag = 0;
+   				strcpy(b, a);
+   			}
+   			else if (!flag) {
+   				flag = 1;
+   				puts(a);
+   			}
+   		}
+   	}
+   	return 0;
+   }
+   ```
+
+6. <img src="./images/image-20250725163043583.png" alt="image-20250725163043583" style="zoom:80%;" /> 
+
+   ```
+   #include <stdio.h>
+   
+   int substr(char dst[], char src[], int start, int len) {
+       int d = 0, s = 0;
+       if (start >= 0 && len > 0) {
+           for (s; s < start && src[s] != '\0'; s++)
+               ;
+           
+           while (len > 0 && src[s] != '\0') {
+               dst[d++] = src[s++];
+               len--;
+           }
+       }
+       dst[d] = '\0';
+       return d;
+   }
+   
+   int main() {
+       char a[10] = "01234567", b[10];
+       substr(b, a, 2, 3);
+       puts(b);
+       return 0;
+   }
+   
+   /*
+   234
+   */
+   ```
+
+7. <img src="./images/image-20250725163559495.png" alt="image-20250725163559495" style="zoom:80%;" /> 
+
+   ```
+   #include <stdio.h>
+   
+   void deblank(char a[]) {
+       for (int i = 0, j = 0; a[i] != '\0'; ) {
+           int flag = 0;
+           while (a[i] != '\0' && a[i] == ' ') flag = 1, i++;
+           if (flag)
+               a[j++] = ' ';
+           a[j++] = a[i++];
+       }
+   }
+   
+   int main() {
+       char a[50] = "  asas  asas  da   ";
+       puts(a);
+       deblank(a);
+       puts(a);
+   }
+   ```
 
 
 
