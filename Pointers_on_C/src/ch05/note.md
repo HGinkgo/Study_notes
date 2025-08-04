@@ -63,11 +63,11 @@
 
    答：它们通常用于对设备控制器进行编程，以设置或测试特定的位位置。
 
-4. <img src="./images/image-20250802143602641.png" alt="image-20250802143602641" style="zoom:80%;" />
+4. <img src="./images/image-20250802143602641.png" alt="image-20250802143602641" style="zoom:80%;" /> 
 
    答：速度相当。
 
-5. <img src="./images/image-20250802143638739.png" alt="image-20250802143638739" style="zoom:80%;" />
+5. <img src="./images/image-20250802143638739.png" alt="image-20250802143638739" style="zoom:80%;" /> 
 
    答：
 
