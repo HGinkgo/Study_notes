@@ -6,8 +6,6 @@
 
     "code-runner.runInTerminal": true,      // 关键：在集成终端里运行
     "code-runner.executorMap": {
-    "c": "cd $dir && gcc $fileName -o $tempCodeRunnerFile -mconsole && $tempCodeRunnerFile && del $tempCodeRunnerFile.exe",
-    "cpp": "cd $dir && g++ $fileName -o $tempCodeRunnerFile -mconsole && $tempCodeRunnerFile && del $tempCodeRunnerFile.exe"
+    "c": "cd $dir && gcc $fileName -o $fileNameWithoutExt.exe -mconsole && .\\$fileNameWithoutExt.exe"
 }
-
 }

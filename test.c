@@ -1,16 +1,21 @@
 #include <stdio.h>
 
-int func ( void )
+int gcd(int a, int b)
 {
-    static int counter = 1;
-    return ++counter;
+    if (b == 0) {
+        return a;
+    }
+    return gcd(b, a % b);
 }
 
-int main ()
+int main()
 {
-    int answer; 
-    answer = func() - func() * func();
-    printf( "%d\n", answer );
-
+    int a, b;
+    printf("Enter two integers: ");
+    scanf("%d %d", &a, &b);
+    
+    int result = gcd(a, b);
+    printf("GCD of %d and %d is %d\n", a, b, result);
+    
     return 0;
 }
