@@ -349,6 +349,233 @@
    
    ```
 
+2. <img src="F:\Study_notes\CSAPP\src\ch02\images\image-20250812111341940.png" alt="image-20250812111341940" style="zoom:80%;" /> 
+
+   答：
+
+   ```
+   #include <stdio.h>
+   
+   typedef unsigned char *byte_pointer;
+   
+   void show_short(void);
+   void show_long(void);
+   void show_double(void);
+   void show_bytes(byte_pointer start, size_t len);
+   
+   int main(int argc, char const *argv[])
+   {
+   	show_short();
+   	show_long();
+   	show_double();
+   	return 0;
+   }
+   
+   void show_bytes(byte_pointer start, size_t len) {
+       size_t i;
+       for (i = 0; i < len; i++)
+   	printf(" %.2x", start[i]);
+       printf("\n");
+   }
+   
+   void show_short(void)
+   {
+   	short i = 12345;
+   	printf("short i = 12345\n");
+   	show_bytes((byte_pointer)&i, sizeof i);
+   }
+   void show_long(void)
+   {
+   	long i = 123456789;
+   	printf("long i = 123456789\n");
+   	show_bytes((byte_pointer)&i, sizeof i);
+   }
+   void show_double(void)
+   {
+   	double i = 123456789.0;
+   	printf("double i = 123456789.0\n");
+   	show_bytes((byte_pointer)&i, sizeof i);
+   }
+   ```
+
+3. <img src="F:\Study_notes\CSAPP\src\ch02\images\image-20250812112216985.png" alt="image-20250812112216985" style="zoom:80%;" /> 
+
+   答：
+
+   ```
+   #include <stdio.h>
+   #include <stdint.h>
+   
+   int is_little_endian(void);
+   
+   int main(int argc, char const *argv[])
+   {
+   	return is_little_endian();
+   }
+   
+   int is_little_endian(void)
+   {
+       int32_t i = 1;
+   	unsigned char *p = (unsigned char *)&i;
+   	if(*p)
+   	{
+   		return 1;
+   	}
+   	return 0;
+   }
+   ```
+
+4. <img src="F:\Study_notes\CSAPP\src\ch02\images\image-20250812113733709.png" alt="image-20250812113733709" style="zoom:80%;" /> 
+
+   答：先与再或。
+
+   ```
+   #include <stdio.h>
+   
+   int main(int argc, char const *argv[])
+   {
+   	int x = 0x89ABCDEF;
+   	int y = 0x76543210;
+   	printf("0x%.8X\n", x&0xFF | y&~0xFF);
+   	return 0;
+   }
+   ```
+
+5. 题目：
+
+   <img src="F:\Study_notes\CSAPP\src\ch02\images\image-20250812114050697.png" alt="image-20250812114050697" style="zoom:80%;" /> 
+
+   <img src="F:\Study_notes\CSAPP\src\ch02\images\image-20250812114122066.png" alt="image-20250812114122066" style="zoom:80%;" /> 
+
+   答：**这道题细节挺多的。**
+
+   ```
+   #include <stdio.h>
+   
+   unsigned replace_byte(unsigned x, int i, unsigned char b);
+   
+   int main(int argc, char const *argv[])
+   {
+   	printf("%#.8x\n", replace_byte(0x12345678, 2, 0xAB));
+   	printf("%#.8x\n", replace_byte(0x12345678, 0, 0xAB));
+   	return 0;
+   }
+   
+   unsigned replace_byte(unsigned x, int i, unsigned char b)
+   {
+   	int move = i * 8;
+   	return x & ~(0xFF << move) | b << move;
+   }
+   ```
+
+6. <img src="F:\Study_notes\CSAPP\src\ch02\images\image-20250812114545150.png" alt="image-20250812114545150" style="zoom:80%;" /> 
+
+   答：
+
+   ```
+   #include<stdio.h>
+   
+   int main(int argc, char const *argc[])
+   {
+   	int x, y;
+   	int sizeof_int = sizeof(int);
+   	
+   	/*condition A*/
+   	x = ~0;
+   	y = 0xFFFFFF00;
+   	printf("%d\t%d\n", !(~x), !(~y));
+   	
+   	/*condition B*/
+   	x = 0;
+   	y = 0x000000FF;
+   	printf("%d\t%d\n", !x, !y);
+   	
+   	/*condition C*/
+   	x = 0x000000FF;
+   	y = 0x0000000F;
+   	printf("%d\t%d\n", !((x ^ 0xFF)<<((sizeof_int-1)<<3)), !((y ^ 0xFF)<<((sizeof_int-1)<<3)));
+   
+   	/*condition D*/
+   	x = 0x00FFFFFF;
+   	y = 0x0FFFFFFF;
+   	printf("%d\t%d\n", !(x >> ((sizeof_int-1) << 3)), !(y >> ((sizeof_int-1) << 3)));
+   	return 0;
+   }
+   ```
+
+7. <img src="F:\Study_notes\CSAPP\src\ch02\images\image-20250812121411221.png" alt="image-20250812121411221" style="zoom:80%;" /> 
+
+   答：
+
+   ```
+   #include<stdio.h>
+   
+   int int_shifts_are_arithmetic(void);
+   int int_shifts_are_logic(void);
+   
+   int main()
+   {
+   	printf("arithmetic:%d\n", int_shifts_are_arithmetic());
+   	printf("%d\n", int_shifts_are_logic());
+   	return 0;
+   }
+   
+   int int_shifts_are_arithmetic(void)
+   {
+   	int x = ~0;
+   	return x >> 1 == x;
+   }
+   
+   int int_shifts_are_logic(void)
+   {
+   	unsigned x = ~0;
+   	return x >> 1 == x;
+   }
+   ```
+
+8. <img src="F:\Study_notes\CSAPP\src\ch02\images\image-20250812144114345.png" alt="image-20250812144114345" style="zoom:80%;" /> 
+
+   答：
+
+   ```
+   #include <stdio.h>
+   
+   unsigned srl(unsigned x, int k);
+   int sra(int x, int k); 
+   
+   int main(int argc, char const *argv[])
+   {
+   	printf("%#.8x\n", srl(0x80000000, 8));
+   	printf("%#.8x\n", sra(0x80000000, 8));
+   	return 0;
+   }
+   
+   unsigned srl(unsigned x, int k) 
+   {
+   	/* 算术右移 */
+   	unsigned xsra = (int) x >> k;
+   	/*思路是由k形成诸如0x00FFFFFF这样的掩码，与xsra进行与操作从而将高位置零*/
+   	unsigned w = sizeof(int) << 3;
+   	unsigned mask = ~(((1 << k)-1)<<(w-k)); 
+     	/*(1 << k)-1能够获得低位连续为1，高位为0的掩码，但是其不能达到全1，于是继续向左移w-k然后取反*/
+   	return mask & xsra; 
+   }
+   
+   int sra(int x, int k)
+   {
+   	/* Perform shift logically */
+   	int xsrl = (unsigned) x >> k;
+   	/*这个题目的关键点是判断符号位是否为1，通过test &= xsrl，test为零如果符号位为0，否则test不变（处于符号位位置*/
+   	unsigned w = sizeof(int) << 3;
+   	int test = 1 << (w-1-k);
+   	test &= xsrl;
+   	int mask = ~(test - 1);
+     	/*test为零时，~(test - 1)为全零，不会改变xsrl*/
+   	return mask | xsrl;
+   }
+   
+   ```
+
    
 
 

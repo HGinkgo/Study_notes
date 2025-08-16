@@ -1,21 +1,23 @@
-#include <stdio.h>
+#include<stdio.h>
 
-int gcd(int a, int b)
-{
-    if (b == 0) {
-        return a;
-    }
-    return gcd(b, a % b);
-}
+int int_shifts_are_arithmetic(void);
+int int_shifts_are_logic(void);
 
 int main()
 {
-    int a, b;
-    printf("Enter two integers: ");
-    scanf("%d %d", &a, &b);
-    
-    int result = gcd(a, b);
-    printf("GCD of %d and %d is %d\n", a, b, result);
-    
-    return 0;
+	printf("arithmetic: %d\n", int_shifts_are_arithmetic());
+	printf("logic: %d\n", int_shifts_are_logic());
+	return 0;
+}
+
+int int_shifts_are_arithmetic(void)
+{
+	int x = ~0;
+	return x >> 1 == x;
+}
+
+int int_shifts_are_logic(void)
+{
+	unsigned x = ~0;
+	return x >> 1 == x;
 }
